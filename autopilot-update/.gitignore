@@ -1,0 +1,5 @@
+kube.config
+ssh-key-controller*
+ssh-key-worker*
+k0s-v1.2*
+*.bkp
