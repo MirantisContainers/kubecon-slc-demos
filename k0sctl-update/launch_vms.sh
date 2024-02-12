@@ -2,14 +2,15 @@
 
 set -e
 
-# Setup SSH public key in clout-init data using envsubst
-files=$(find . -type f -name "*.tmpl")
+source ../helpers.sh
 
-for file in $files; do
-  SSH_PUBLIC_KEY=$(cat ~/.ssh/id_rsa.pub) envsubst < $file > ${file%.tmpl}
-done
+# Setup SSH public key in clout-init data using envsubst
+SSH_PUBLIC_KEY=$(cat ~/.ssh/id_rsa.pub) envsubst < ci.yaml.tmpl > ci.yaml
+
 
 # Launch VMs
-multipass launch -n k0sctl-controller --cloud-init ci-controller.yaml
-multipass launch -n k0sctl-worker1 --cloud-init ci-worker1.yaml
-multipass launch -n k0sctl-worker2 --cloud-init ci-worker2.yaml
+for name in k0sctl-controller k0sctl-worker1 k0sctl-worker2;do
+  multipass launch -n $name --cloud-init ci.yaml
+done
+
+CONTROLLER_IP=`ipAddress k0sctl-controller` WORKER1_IP=`ipAddress k0sctl-worker1` WORKER2_IP=`ipAddress k0sctl-worker2` envsubst < k0sctl.yaml.tmpl > k0sctl.yaml

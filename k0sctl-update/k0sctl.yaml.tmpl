@@ -5,31 +5,28 @@ metadata:
 spec:
   hosts:
   - ssh:
-      address: 192.168.66.12
+      address: ${CONTROLLER_IP}
       user: k0suser
       port: 22
-      keyPath: ./ssh-key-controller
     role: controller
     uploadBinary: true
-    k0sBinaryPath: ./k0s-v1.28.6+k0s.1-arm64
+    # k0sBinaryPath: ./k0s-v1.28.6+k0s.1-arm64
 #    k0sBinaryPath: ./k0s-v1.29.1+k0s.1-arm64
   - ssh:
-      address: 192.168.66.13
+      address: ${WORKER1_IP}
       user: k0suser
       port: 22
-      keyPath: ./ssh-key-worker1
     role: worker
     uploadBinary: true
-    k0sBinaryPath: ./k0s-v1.28.6+k0s.1-arm64
+    # k0sBinaryPath: ./k0s-v1.28.6+k0s.1-arm64
 #    k0sBinaryPath: ./k0s-v1.29.1+k0s.1-arm64
   - ssh:
-      address: 192.168.66.14
+      address: ${WORKER2_IP}
       user: k0suser
       port: 22
-      keyPath: ./ssh-key-worker2
     role: worker
     uploadBinary: true
-    k0sBinaryPath: ./k0s-v1.28.6+k0s.1-arm64
+    # k0sBinaryPath: ./k0s-v1.28.6+k0s.1-arm64
 #    k0sBinaryPath: ./k0s-v1.29.1+k0s.1-arm64
   k0s:
     version: v1.28.6+k0s.1
