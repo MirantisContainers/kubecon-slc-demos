@@ -1,15 +1,17 @@
 
 ## Creating machines
 
+```shell
+./launch_vms
 ```
-multipass launch -n k0sctl-controller --cloud-init ci-controller.yaml
-multipass launch -n k0sctl-worker1 --cloud-init ci-worker1.yaml
-multipass launch -n k0sctl-worker2 --cloud-init ci-worker2.yaml
-```
+
+The script will also prepare cloud-init data with your public key from `~/.ssh/id_rsa.pub` for each machine.
+
+It will also prepare the `k0sctl.yaml` file with the machine IPs.
 
 ## Checking state
 
-```
+```shell
 $ multipass list
 Name                    State             IPv4             Image
 k0sctl-controller       Running           192.168.66.3     Ubuntu 22.04 LTS
@@ -60,10 +62,6 @@ k0sctl-worker2   Ready,SchedulingDisabled   <none>   6m31s   v1.28.6+k0s
 
 ## Cleaning up
 
-```
-rm -f kube.config
-multipass delete k0sctl-controller
-multipass delete k0sctl-worker1
-multipass delete k0sctl-worker2
-multipass purge
+```shell
+./destroy.sh
 ```

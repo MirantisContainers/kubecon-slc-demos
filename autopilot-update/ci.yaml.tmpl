@@ -2,5 +2,6 @@ users:
   - default
   - name: k0suser
     sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
     ssh_authorized_keys:
-    - ssh-rsa AAAA… k0suser
+    - ${SSH_PUBLIC_KEY}
