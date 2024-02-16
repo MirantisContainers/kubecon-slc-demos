@@ -10,7 +10,7 @@ spec:
       port: 22
     role: controller
     uploadBinary: true
-    # k0sBinaryPath: ./k0s-v1.28.6+k0s.1-arm64
+    k0sBinaryPath: ../file-server/files/bins/k0s-v1.28.6+k0s.1-arm64
 #    k0sBinaryPath: ./k0s-v1.29.1+k0s.1-arm64
   - ssh:
       address: ${WORKER1_IP}
@@ -18,7 +18,12 @@ spec:
       port: 22
     role: worker
     uploadBinary: true
-    # k0sBinaryPath: ./k0s-v1.28.6+k0s.1-arm64
+    k0sBinaryPath: ../file-server/files/bins/k0s-v1.28.6+k0s.1-arm64
+    files:
+      - name: image-bundle
+        src: http://${FILE_SERVER_IP}/files/images/k0s-airgap-bundle-v1.28.6+k0s.1-arm64
+        dstDir: /var/lib/k0s/images/
+        perm: 0600
 #    k0sBinaryPath: ./k0s-v1.29.1+k0s.1-arm64
   - ssh:
       address: ${WORKER2_IP}
@@ -26,7 +31,12 @@ spec:
       port: 22
     role: worker
     uploadBinary: true
-    # k0sBinaryPath: ./k0s-v1.28.6+k0s.1-arm64
+    k0sBinaryPath: ../file-server/files/bins/k0s-v1.28.6+k0s.1-arm64
+    files:
+      - name: image-bundle
+        src: http://${FILE_SERVER_IP}/files/images/k0s-airgap-bundle-v1.28.6+k0s.1-arm64
+        dstDir: /var/lib/k0s/images/
+        perm: 0600
 #    k0sBinaryPath: ./k0s-v1.29.1+k0s.1-arm64
   k0s:
     version: v1.28.6+k0s.1
