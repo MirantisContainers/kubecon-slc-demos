@@ -9,6 +9,10 @@ write_files:
 
 # Setup k0s worker using the token
 runcmd:
-  - curl -sSfL get.k0s.sh | sh
+  - wget -O /usr/local/bin/k0s http://${FILE_SERVER_IP}/files/bins/k0s-v1.29.1+k0s.1-arm64
+  - chmod +x /usr/local/bin/k0s
+  # Install image bundle
+  - mkdir -p /var/lib/k0s/images
+  - wget -O /var/lib/k0s/images/image-bundle http://${FILE_SERVER_IP}/files/images/k0s-airgap-bundle-v1.29.1+k0s.1-arm64
   - k0s install worker --token-file /etc/k0s.token
   - k0s start
