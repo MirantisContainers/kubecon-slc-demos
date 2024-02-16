@@ -8,11 +8,19 @@ spec:
   timestamp: now
 
   commands:
+    - airgapupdate:
+        version: v1.29.1+k0s.1
+        platforms:
+          linux-arm64:
+            url: http://${FILE_SERVER_IP}/files/images/k0s-airgap-bundle-v1.29.1+k0s.1-amd64
+        workers:
+          discovery:
+            selector: {}
     - k0supdate:
         version: v1.29.1+k0s.1
         platforms:
           linux-arm64:
-            url: https://github.com/k0sproject/k0s/releases/download/v1.29.1+k0s.1/k0s-v1.29.1+k0s.1-arm64
+            url: http://${FILE_SERVER_IP}/files/bins/k0s-v1.29.1+k0s.1-arm64
         targets:
           controllers:
             discovery:

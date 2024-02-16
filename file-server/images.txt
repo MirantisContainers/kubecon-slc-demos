@@ -1,0 +1,2 @@
+https://github.com/k0sproject/k0s/releases/download/v1.29.1%2Bk0s.1/k0s-airgap-bundle-v1.29.1+k0s.1-arm64
+https://github.com/k0sproject/k0s/releases/download/v1.28.6%2Bk0s.1/k0s-airgap-bundle-v1.28.6+k0s.1-arm64
