@@ -1,0 +1,75 @@
+---
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: demo-cluster
+  namespace: remote-machines
+  annotations:
+    k0smotron.io/k0s-version-suffix: k0s.0
+spec:
+  controlPlaneRef:
+    apiVersion: controlplane.cluster.x-k8s.io/v1beta1
+    kind: K0smotronControlPlane
+    name: demo-cluster
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+    kind: RemoteCluster
+    name: demo-cluster
+---
+apiVersion: controlplane.cluster.x-k8s.io/v1beta1
+kind: K0smotronControlPlane # This is the config for the controlplane
+metadata:
+  name: demo-cluster
+  namespace: remote-machines
+spec:
+  k0sVersion: v1.29.1-k0s.1
+  service:
+    type: LoadBalancer
+    apiPort: 6443
+    konnectivityPort: 8132
+  persistence:
+    type: emptyDir
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: RemoteCluster
+metadata:
+  name: demo-cluster
+  namespace: remote-machines
+spec:
+---
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Machine
+metadata:
+  name:  remote-test-0
+  namespace: remote-machines
+spec:
+  clusterName: demo-cluster
+  bootstrap:
+    configRef:
+      apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+      kind: K0sWorkerConfig
+      name: remote-test-0
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+    kind: RemoteMachine
+    name: remote-test-0
+---
+apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+kind: K0sWorkerConfig
+metadata:
+  name: remote-test-0
+  namespace: remote-machines
+spec:
+  version: v1.29.1+k0s.0
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: RemoteMachine
+metadata:
+  name: remote-test-0
+  namespace: remote-machines
+spec:
+  address: ${RM1_IP}
+  port: 22
+  user: root
+  sshKeyRef:
+    name: rm-key

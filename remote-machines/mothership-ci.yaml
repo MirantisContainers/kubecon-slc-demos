@@ -1,0 +1,7 @@
+#cloud-config
+
+# Setup single node k0s cluster
+runcmd:
+  - curl -sSfL get.k0s.sh | sh
+  - k0s install controller --single
+  - k0s start
