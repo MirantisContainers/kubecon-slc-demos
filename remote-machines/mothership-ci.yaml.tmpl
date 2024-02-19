@@ -1,0 +1,11 @@
+#cloud-config
+
+runcmd:
+  - wget -O /usr/local/bin/k0s http://${FILE_SERVER_IP}/files/bins/k0s-v1.29.1+k0s.1-arm64
+  - chmod +x /usr/local/bin/k0s
+  # Install image bundles
+  - mkdir -p /var/lib/k0s/images
+  - wget -O /var/lib/k0s/images/image-bundle http://${FILE_SERVER_IP}/files/images/k0s-airgap-bundle-v1.29.1+k0s.1-arm64
+  - wget -O /var/lib/k0s/images/capi-image-bundle http://${FILE_SERVER_IP}/files/images/capi-images.tar
+  - k0s install controller --single
+  - k0s start

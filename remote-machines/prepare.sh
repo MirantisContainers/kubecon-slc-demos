@@ -2,6 +2,13 @@
 
 set -e
 
+source ../helpers.sh
+
+file_server_ip=$(ipAddress k0s-files)
+
+# Prep the cloud-init data using envsubst
+FILE_SERVER_IP=$file_server_ip envsubst < mothership-ci.yaml.tmpl > mothership-ci.yaml
+
 # Launch mothership node with k0s
 multipass launch -n k0s-mothership --cloud-init mothership-ci.yaml -c 2 -m 4G -d 10G
 
@@ -23,14 +30,14 @@ clusterctl init
 
 # Install k0smotron
 echo "Installing k0smotron"
-kubectl apply -f https://docs.k0smotron.io/v0.8.0/install.yaml
+kubectl apply -f http://${file_server_ip}/files/manifests/install.yaml
 echo "Waiting for k0smotron to be ready"
 while ! kubectl get pods -n k0smotron | grep Running; do
   sleep 5
 done
 
 # Install MetalLB and address pool + advertisement config
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.3/config/manifests/metallb-native.yaml
+kubectl apply -f http://${file_server_ip}/files/manifests/metallb-native.yaml
 # Wait for the controller to be ready
 while ! kubectl get pods -n metallb-system -l component=controller | grep Running; do
   sleep 5
@@ -63,6 +70,7 @@ done
 sleep 5
 
 # Populate the CAPI yaml with the address of the remote machines
-RM1_IP=`multipass info k0s-remote-demo1 --format json | jq -r '.info."k0s-remote-demo1".ipv4[0]'` envsubst < capi-remote-machines.yaml.tmpl > capi-remote-machines.yaml
+rm1_ip=$(ipAddress k0s-remote-demo1)
+RM1_IP=${rm1_ip} FILE_SERVER_IP=${file_server_ip} envsubst < capi-remote-machines.yaml.tmpl > capi-remote-machines.yaml
 
 echo "Remote machines are ready, CAPI yaml at capi-remote-machines.yaml"
