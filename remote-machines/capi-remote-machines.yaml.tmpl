@@ -61,6 +61,10 @@ metadata:
   namespace: remote-machines
 spec:
   version: v1.29.1+k0s.0
+  downloadURL: http://${FILE_SERVER_IP}/files/bins/k0s-v1.29.1+k0s.1-arm64
+  preStartCommands:
+    - mkdir -p /var/lib/k0s/images
+    - wget -O /var/lib/k0s/images/image-bundle http://${FILE_SERVER_IP}/files/images/k0s-airgap-bundle-v1.29.1+k0s.1-arm64
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: RemoteMachine
