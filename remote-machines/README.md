@@ -25,6 +25,11 @@ To get the child cluster kubeconfig, use
 ```shell
 clusterctl get kubeconfig -n remote-machines demo-cluster > child.conf
 ```
+or
+
+```shell
+KUBECONFIG=mothership.conf k get secret -n remote-machines demo-cluster-kubeconfig -o jsonpath='{.data.value}' | base64 -d > ./child.conf
+```
 
 To see the results:
 

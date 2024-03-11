@@ -3,6 +3,7 @@
 set -e
 
 images="
+quay.io/k0sproject/k0smotron:v0.8.0
 quay.io/metallb/speaker:v0.14.3
 registry.k8s.io/cluster-api/cluster-api-controller:v1.6.1
 registry.k8s.io/cluster-api/kubeadm-control-plane-controller:v1.6.1
