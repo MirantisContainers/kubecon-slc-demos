@@ -12,7 +12,7 @@ spec:
         version: v1.29.1+k0s.1
         platforms:
           linux-arm64:
-            url: http://${FILE_SERVER_IP}/files/images/k0s-airgap-bundle-v1.29.1+k0s.1-amd64
+            url: http://${FILE_SERVER_IP}/files/images/k0s-airgap-bundle-v1.29.1+k0s.1-arm64
         workers:
           discovery:
             selector: {}
@@ -32,4 +32,3 @@ spec:
               concurrent: 1
             discovery:
               selector: {}
-                
