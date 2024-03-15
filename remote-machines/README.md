@@ -14,6 +14,24 @@ Just run the `prepare.sh` script. It will do the following:
 - creates needed CAPI yamls with the VM address for `RemoteMachine`
 - Dumps out the mothership cluster kubeconfig to `mothership.conf`
 
+Import the mothership conf to Lens and switch to that view.
+
+
+## Running the demo
+
+Show the graphics and explain what we're going to demo.
+
+1. Switch Lens to view your management cluster.
+2. Show that this is enabled as CAPI cluster by showing all the related CRDs
+3. Open terminal
+4. Show and briefly explain `capi-remote-machines.yaml`; Focus on the RemoteMachine bits.
+5. `kubectl apply -f capi-remote-machines.yaml`
+6. `clusterctl get kubeconfig -n remote-machines demo-cluster > ~/.kube/remote-child.conf`
+7. Open the new child cluster
+8. Show how everything is running up properly
+
+Show the graphics again and explian again what we just did and demoed.
+
 ## Applying CAPI child cluster
 
 ```shell

@@ -1,5 +1,6 @@
+# Autopilot update demo
 
-## Creating machines
+## Preparation
 
 ```shell
 ./launch_vms
@@ -9,25 +10,7 @@ The script will also prepare cloud-init data with your public key from `~/.ssh/i
 
 It will also prepare the `k0sctl.yaml` file with the machine IPs.
 
-## Checking state
-
-```shell
-$ multipass list
-Name                    State             IPv4             Image
-k0sctl-controller       Running           192.168.66.3     Ubuntu 22.04 LTS
-k0sctl-worker1          Running           192.168.66.4     Ubuntu 22.04 LTS
-k0sctl-worker2          Running           192.168.66.5     Ubuntu 22.04 LTS
-
-```
-
-## Run k0sctl
-
-```shell
-k0sctl apply -c k0sctl.yaml
-k0sctl kubeconfig > kube.config
-```
-
-## Checking version
+### Checking version and state
 
 ```shell
 $ KUBECONFIG=kube.config k get nodes
@@ -39,26 +22,28 @@ $ multipass exec k0sctl-controller sudo k0s version
 v1.28.6+k0s.1
 ```
 
-## Apply the plan
+The demo cluster is now ready to be used.
 
-```shell
-kubectl apply -f plan.yaml
-```
+### Connect the cluster to Lens
 
-## Check the update process
+Just import the local `kube.conf` kubeconfig to Lens.
 
-```shell
-$ multipass exec k0sctl-controller sudo k0s version
-v1.29.1+k0s.1
+## Running the demo
 
-$ KUBECONFIG=kube.config k get pods -A
-...
+Change Lens context to the local demo cluster.
 
-$ KUBECONFIG=kube.config k get nodes
-NAME             STATUS                     ROLES    AGE     VERSION
-k0sctl-worker1   Ready                      <none>   6m31s   v1.29.1+k0s
-k0sctl-worker2   Ready,SchedulingDisabled   <none>   6m31s   v1.28.6+k0s
-```
+First show the graphics and briefly explain what we're going to demonstrate.
+
+1. Show the nodes and their version. In the node details, show e.g. containerd version.
+2. Show plan object and do a quick walkthrough.
+3. Open terminal on Lens
+4. `kubectl apply -f plan.yaml`
+5. Lens will briefly disconnect, explain that this happens as the demo cluster is single controller
+6. Navigate to Nodes view.
+7. You'll show Nodes updating one by one, also show in pods view how draining etc. is happening automatically
+8. Once node(s) are updated, show in details view how containerd is also updated
+
+Show the graphics again and explian again what we just did and demoed.
 
 ## Cleaning up
 
