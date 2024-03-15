@@ -33,3 +33,22 @@ To watch the node joining you can look at the child cluster API:
 ```shell
 watch kubectl --kubeconfig child.conf get node,pod -A
 ```
+
+## Running the demo
+
+Show the graphics and explain what we're going to demo.
+
+1. Switch Lens to view your management cluster.
+2. Open terminal
+3. `kubectl apply -f controlplane.yaml`
+4. Show the `k0smotron.io/cluster` object in CRD view
+5. Show the pods etc in `kc-paris` namespace
+6. Get the child cluster kubeconfig `kubectl get secret -n kc-paris demo-kubeconfig -o jsonpath='{.data.value}' | base64 -d > ~/.kube/demo-child.conf`
+7. `./join-worker.sh`
+8. Explain what the script does
+9. Show the created `JoinTokenRequest`
+10. Switch Lens to the child cluster
+11. See node(s) joining
+12. Show the generated cloud-init file and explain how the worker node joins
+
+Show the graphics again and explian again what we just did and demoed.
