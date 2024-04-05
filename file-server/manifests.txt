@@ -1,2 +1,2 @@
 https://raw.githubusercontent.com/metallb/metallb/v0.14.3/config/manifests/metallb-native.yaml
-https://docs.k0smotron.io/v0.8.0/install.yaml
+https://docs.k0smotron.io/v0.9.0/install.yaml

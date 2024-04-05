@@ -5,7 +5,7 @@ set -e
 images="
 k0sproject/k0s:v1.29.1-k0s.1
 k0sproject/k0s:v1.29.1-k0s.0
-quay.io/k0sproject/k0smotron:v0.8.0
+quay.io/k0sproject/k0smotron:v0.9.0
 quay.io/metallb/speaker:v0.14.3
 registry.k8s.io/cluster-api/cluster-api-controller:v1.6.1
 registry.k8s.io/cluster-api/kubeadm-control-plane-controller:v1.6.1

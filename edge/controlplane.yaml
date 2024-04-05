@@ -9,8 +9,7 @@ metadata:
   name: demo
   namespace: kc-paris
 spec:
-  #version: v1.29.1-k0s.0
-  k0sVersion: v1.29.1-k0s.1
+  version: v1.29.1-k0s.0
   service:
     type: LoadBalancer
     annotations:
